@@ -34,8 +34,6 @@ class Config:
     grad_clip_critic = None
     use_gae = False
     lamda = 0.95
-    log_every = 100
     size_score = 100
     render_eval = False
-    num_evals = 100
     

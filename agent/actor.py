@@ -9,9 +9,9 @@ class Actor(nn.Module):
     def __init__(self, state_size, action_size, activ):
         super(Actor, self).__init__()
         
-        self.input = nn.Linear(state_size, 128)
-        self.hidden = nn.Linear(128, 128)
-        self.output = nn.Linear(128, action_size)
+        self.input = nn.Linear(state_size, 64)
+        self.hidden = nn.Linear(64, 64)
+        self.output = nn.Linear(64, action_size)
         
         self.std = nn.Parameter(torch.zeros(action_size))
         
@@ -37,7 +37,7 @@ class Actor(nn.Module):
         if action is None:
             action = dist.sample()
         
-        log_prob = dist.log_prob(action).unsqueeze(-1)
-        entropy = dist.entropy().unsqueeze(-1)
+        log_prob = dist.log_prob(action).mean(-1).unsqueeze(-1)
+        entropy = dist.entropy().mean(-1).unsqueeze(-1)
         
         return action, log_prob, entropy

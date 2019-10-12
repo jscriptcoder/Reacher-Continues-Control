@@ -8,9 +8,8 @@ class Critic(nn.Module):
     def __init__(self, state_size, activ):
         super(Critic, self).__init__()
         
-        self.input = nn.Linear(state_size, 128)
-        self.hidden = nn.Linear(128, 128)
-        self.output = nn.Linear(128, 1)
+        self.input = nn.Linear(state_size, 512)
+        self.output = nn.Linear(512, 1)
         
         self.activ = activ
         
@@ -21,9 +20,7 @@ class Critic(nn.Module):
             state = torch.FloatTensor(state).to(device)
         
         x = self.input(state)
-        x = self.activ(x)
-        
-        x = self.hidden(x)
+        x = F.dropout(x)
         x = self.activ(x)
         
         value = self.output(x)

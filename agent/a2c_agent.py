@@ -1,6 +1,8 @@
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from collections import deque
 
 from .actor import Actor
 from .critic import Critic
@@ -22,6 +24,9 @@ class A2CAgent:
         self.optim_value = config.optim_critic(self.value.parameters(), 
                                                lr=config.lr_critic)
         
+        np.random.seed(config.seed)
+        torch.manual_seed(config.seed)
+        
         self.reset()
     
     def reset(self):
@@ -32,10 +37,10 @@ class A2CAgent:
     def act(self, state):
         self.policy.eval()
         with torch.no_grad():
-            action, _, _= self.policy([state])
+            action, _, _= self.policy(state)
         self.policy.train()
         
-        return action.item()
+        return action
     
     def collect_data(self):
         steps = self.config.steps
@@ -65,13 +70,13 @@ class A2CAgent:
             next_state, reward, done, _ = envs.step(action.cpu().numpy())
             
             rewards.append(torch.FloatTensor(reward).unsqueeze(-1).to(device))
-            masks.append(torch.FloatTensor(1 - done).unsqueeze(-1).to(device))
+            masks.append(torch.FloatTensor(1 - np.array(done)).unsqueeze(-1).to(device))
             
             state = next_state
             
             self.total_steps += 1
             
-            if done.all():
+            if np.array(done).all():
                 self.all_done = True
                 break
         
@@ -163,70 +168,51 @@ class A2CAgent:
                                              values, 
                                              returns)
         
-        return value_loss, policy_loss
+        return rewards, policy_loss, value_loss
     
     def train(self):
         num_episodes = self.config.num_episodes
-        max_steps = self.config.max_steps
-        log_every = self.config.log_every
         env_solved = self.config.env_solved
+        size_score = self.config.size_score
         envs = self.config.envs
+        
+        scores = []
+        scores_window = deque(maxlen=size_score)
+        best_mean_score = -np.inf
         
         for i_episode in range(1, num_episodes+1):
             self.reset()
+            score = 0
             
-            while self.total_steps <= max_steps:
-                value_loss, policy_loss = self.step()
+            while True:
+                rewards, policy_loss, value_loss = self.step()
+                
+                score += torch.cat(rewards).cpu().numpy().mean()
                 
                 if self.all_done:
                     break
             
-            if i_episode % log_every == 0:
-                score = self.eval_episode()
+            scores.append(score)
+            scores_window.append(score)
+            mean_score = np.mean(scores_window)
+            
+            print('\rEpisode {}\tPolicy loss: {:.3f}\tValue loss: {:.3f}\tAvg Score: {:.3f}'\
+                  .format(i_episode, 
+                          policy_loss, 
+                          value_loss, 
+                          mean_score), end='')
+            
+            if i_episode % size_score == 0:
                 
-                print('Episode {}\tValue loss: {:.3f}\tPolicy loss: {:.3f}\tScore: {:.2f}'\
-                      .format(i_episode, 
-                              value_loss,
-                              policy_loss, 
-                              score))
+                if mean_score > best_mean_score:
+                    best_mean_score = mean_score
+                    print('\r* Best score so far: {}'.format(mean_score))
                 
-                if score >= env_solved:
-                    print('Environment solved with {:.2f}!'.format(score))
-                    break
+                if mean_score >= env_solved:
+                    print('Environment solved with {:.2f}!'.format(mean_score))
+                    break;
         
         envs.close()
-    
-    def eval_episode(self):
-        env = self.config.eval_env
-        render = self.config.render_eval
-        num_evals = self.config.num_evals
-        
-        total_score = 0
-        
-        for i in range(num_evals):
-            state = env.reset()
-            
-            is_last = i == num_evals - 1
-            
-            if render and is_last:
-                env.render()
-            
-            while True:
-                action = self.act(state)
-                state, reward, done, _ = env.step(action)
-                
-                if render and is_last:
-                    env.render()
-                
-                total_score += reward
-                
-                if done:
-                    break
-            
-            if render and is_last:
-                env.close()
-        
-        return total_score / num_evals
     
     def run_episode(self, debug=True):
         env = self.config.envs
@@ -238,20 +224,20 @@ class A2CAgent:
         
         while True:
             action = self.act(state)
-            state, reward, done, _ = env.step(action)
+            state, reward, done, _ = env.step(action.cpu().numpy())
             
             env.render()
             
-            total_score += reward
+            avg_reward = np.mean(reward)
+            total_score += avg_reward
             
             if debug:
-                print('Reward: {:.2f}'.format(reward))
+                print('Avg reward: {:.2f}'.format(avg_reward))
 
-            if done:
+            if np.array(done).all():
                 break
         
-        if debug:
-            print('Total reward: {:.2f}'.format(total_score))
+        print('Total reward: {:.2f}'.format(total_score))
                 
         env.close()
     
