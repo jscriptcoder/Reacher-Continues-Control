@@ -35,5 +35,4 @@ class Config:
     use_gae = False
     lamda = 0.95
     size_score = 100
-    render_eval = False
     

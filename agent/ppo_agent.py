@@ -8,22 +8,6 @@ class PPOAgent(A2CAgent):
     def __init__(self, config):
         super().__init__(config)
     
-    def step(self):
-        
-        log_probs, entropies, values, rewards, masks, states, actions = \
-            self.collect_data()
-        
-        returns = self.compute_return(values, rewards, masks)
-
-        policy_loss, value_loss = self.learn(log_probs, 
-                                             entropies, 
-                                             values, 
-                                             returns, 
-                                             states, 
-                                             actions)
-        
-        return value_loss, policy_loss
-    
     def random_indices(self, len_states, shuffle=True):
         ppo_batch_size = self.config.ppo_batch_size
         indices = np.arange(len_states)
@@ -43,20 +27,27 @@ class PPOAgent(A2CAgent):
         
         
     
-    def learn(self, log_probs, entropies, values, returns, states, actions):
+    def learn(self, 
+              log_probs, 
+              values, 
+              returns, 
+              **kwargs):
+        
+        states = kwargs['states']
+        actions = kwargs['actions']
+        
         ent_weight = self.config.ent_weight
+        val_loss_weight = self.config.val_loss_weight
         ppo_clip = self.config.ppo_clip
         ppo_epochs = self.config.ppo_epochs
         
-        log_probs = torch.cat(log_probs)
-        entropies = torch.cat(entropies)
-        values = torch.cat(values[:-1]) # we need to remove the last value
+        log_probs = torch.cat(log_probs).detach()
+        values = torch.cat(values).detach()
         returns = torch.cat(returns)
         states = torch.cat(states)
-        actions = torch.cat(actions)
+        actions = torch.cat(actions).detach()
         
-        # A(s, a) = r + γV(s') - V(s)
-        advantages = returns - values.detach()
+        advantages = returns - values
         
         for _ in range(ppo_epochs):
             sampler = self.random_indices(len(states))
@@ -68,19 +59,27 @@ class PPOAgent(A2CAgent):
                 sampled_advantage = advantages[batch_idx, :]
                 sampled_return = returns[batch_idx, :]
 
-                _, new_log_prob, entropy = self.policy(sampled_state, sampled_action)
-                new_value = self.value(sampled_state)
+                (_, 
+                 new_log_prob, 
+                 entropy, 
+                 new_value) = self.policy(sampled_state, sampled_action)
+                
+#                _, new_log_prob, entropy = self.policy(sampled_state, sampled_action)
+#                new_value = self.value(sampled_state)
                 
                 ratio = (new_log_prob - sampled_log_prob.detach()).exp()
                 
                 surrogate_ratio = ratio * sampled_advantage
-                surrogate_clip = ratio.clamp(1.0 - ppo_clip, 1.0 + ppo_clip) * sampled_advantage
+                surrogate_clip = ratio.clamp(1.0 - ppo_clip, 
+                                             1.0 + ppo_clip) * sampled_advantage
+                
                 min_surrogate = torch.min(surrogate_ratio, surrogate_clip)
                 
                 policy_loss = (-min_surrogate - ent_weight * entropy).mean()
-                value_loss = F.mse_loss(new_value, sampled_return)
+                value_loss = val_loss_weight * (sampled_return - new_value).pow(2).mean()
                 
-                self.update(policy_loss, value_loss)
+                self.update(policy_loss + value_loss)
+#                self.update(policy_loss, value_loss)
         
         return policy_loss, value_loss
     

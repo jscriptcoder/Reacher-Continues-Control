@@ -10,10 +10,8 @@ class Actor(nn.Module):
         super(Actor, self).__init__()
         
         self.input = nn.Linear(state_size, 64)
-        self.hidden = nn.Linear(64, 64)
-        self.output = nn.Linear(64, action_size)
-        
-        self.std = nn.Parameter(torch.zeros(action_size))
+        self.mean = nn.Linear(64, action_size)
+        self.std = nn.Linear(64, action_size)
         
         self.activ = activ
         
@@ -25,12 +23,10 @@ class Actor(nn.Module):
         
         x = self.input(state)
         x = self.activ(x)
+
         
-        x = self.hidden(x)
-        x = self.activ(x)
-        
-        mean = torch.tanh(self.output(x))
-        std = F.softplus(self.std)
+        mean = torch.tanh(self.mean(x))
+        std = F.softplus(self.std(x))
         
         dist = Normal(mean, std)
         
