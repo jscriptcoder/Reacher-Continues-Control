@@ -46,6 +46,9 @@ class PPOAgent(A2CAgent):
         
         advantages = returns - values
         
+        # Let's try to normalize the advantages
+        advantages = (advantages - advantages.mean()) / advantages.std()
+        
         for _ in range(ppo_epochs):
             sampler = self.random_indices(len(states))
             

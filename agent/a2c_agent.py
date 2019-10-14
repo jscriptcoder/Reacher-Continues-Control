@@ -46,8 +46,8 @@ class A2CAgent:
     def act(self, state):
         self.policy.eval()
         with torch.no_grad():
-#            action, _, _, _, _ = self.policy(state)
-            action, _, _, _ = self.policy(state)
+#            _, action, _, _, _ = self.policy(state)
+            _, action, _, _ = self.policy(state)
         self.policy.train()
         
         return action
@@ -108,7 +108,7 @@ class A2CAgent:
         
         returns = []
         R = next_value.detach()
-        GAE = torch.zeros((num_agents, 1))
+        GAE = torch.zeros((num_agents, 1)).to(device)
         
         for i in reversed(range(len(rewards))):
             reward = rewards[i]
