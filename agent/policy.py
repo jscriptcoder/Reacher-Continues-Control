@@ -19,4 +19,4 @@ class Policy(nn.Module):
         
         # TODO
         
-#        return action, log_prob, entropy, value
+#        return mean, action, log_prob, entropy, value

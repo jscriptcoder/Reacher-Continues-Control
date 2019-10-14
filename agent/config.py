@@ -4,7 +4,6 @@ from torch.optim import RMSprop
 class Config:
     seed = 101
     num_agents = 0
-    env_solved = 30
     envs = None
     num_episodes = 2000
     steps = 5
@@ -34,5 +33,6 @@ class Config:
     grad_clip_critic = None
     use_gae = False
     lamda = 0.95
-    size_score = 100
+    env_solved = 30
+    times_solved = 100
     

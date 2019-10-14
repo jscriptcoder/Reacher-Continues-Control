@@ -6,7 +6,7 @@ from torch.distributions import Normal
 from .device import device
 
 class Actor(nn.Module):
-    def __init__(self, state_size, action_size, hidden_size, activ):
+    def __init__(self, state_size, action_size, hidden_size, activ, std=1.0):
         super().__init__()
         
         dims = (state_size,) + hidden_size + (action_size,)
@@ -15,7 +15,7 @@ class Actor(nn.Module):
                                      for dim_in, dim_out \
                                      in zip(dims[:-1], dims[1:])])
     
-        self.std = nn.Parameter(torch.zeros(action_size))
+        self.std = nn.Parameter(torch.ones(action_size) * std)
         
         self.activ = activ
         
@@ -41,4 +41,7 @@ class Actor(nn.Module):
         log_prob = dist.log_prob(action).sum(-1).unsqueeze(-1)
         entropy = dist.entropy().sum(-1).unsqueeze(-1)
         
-        return action, log_prob, entropy
+        return mean, action, log_prob, entropy
+    
+    
+    
