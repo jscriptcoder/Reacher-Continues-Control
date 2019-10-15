@@ -5,6 +5,8 @@ import torch.nn.functional as F
 from .a2c_agent import A2CAgent
 
 class PPOAgent(A2CAgent):
+    name = 'ppo'
+    
     def __init__(self, config):
         super().__init__(config)
     
@@ -46,7 +48,7 @@ class PPOAgent(A2CAgent):
         
         advantages = returns - values
         
-        # Let's try to normalize the advantages
+        # Normalize the advantages
         advantages = (advantages - advantages.mean()) / advantages.std()
         
         for _ in range(ppo_epochs):

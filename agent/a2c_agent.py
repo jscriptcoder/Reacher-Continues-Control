@@ -10,10 +10,13 @@ from .device import device
 from .data import Data
 
 class A2CAgent:
+    name = 'a2c'
+    
     def __init__(self, config):
         
         np.random.seed(config.seed)
         torch.manual_seed(config.seed)
+        
         
         self.config = config
         self.data = Data()
@@ -181,6 +184,9 @@ class A2CAgent:
         # A(s, a) = r + γV(s') - V(s)
         advantages = returns - values.detach()
         
+        # Normalize the advantages
+        advantages = (advantages - advantages.mean()) / advantages.std()
+        
         policy_loss = (-log_probs * advantages - ent_weight * entropies).mean()
         value_loss = val_loss_weight * (returns - values).pow(2).mean()
         
@@ -201,6 +207,9 @@ class A2CAgent:
         env_solved = self.config.env_solved
         envs = self.config.envs
         
+        scores = []
+        best_score = -np.inf
+        
         for i_episode in range(1, num_episodes+1):
             self.reset()
             while True:
@@ -209,6 +218,7 @@ class A2CAgent:
                     break
             
             score = self.eval_episode()
+            scores.append(score)
             
             print('\rEpisode {}\tPolicy loss: {:.3f}\tValue loss: {:.3f}\tAvg Score: {:.3f}'\
                   .format(i_episode, 
@@ -216,11 +226,20 @@ class A2CAgent:
                           value_loss, 
                           score), end='')
             
+            if score > best_score:
+                best_score = score
+                print('\nBest score so far: {:.3f}'.format(best_score))
+                
+                torch.save(self.policy.state_dict(), '{}_actor_checkpoint.ph'.format(self.name))
+                torch.save(self.value.state_dict(), '{}_critic_checkpoint.ph'.format(self.name))
+                
             if score >= env_solved:
-                print('Environment solved!')
+                print('\nEnvironment solved!')
                 break;
         
         envs.close()
+        
+        return scores
     
     def eval_episode(self):
         envs = self.config.envs
