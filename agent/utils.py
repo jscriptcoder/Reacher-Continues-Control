@@ -102,7 +102,7 @@ def scores2poly1d(scores, polyfit_deg):
 
 
 def plot_scores(scores, 
-                title='Deep Q-Network', 
+                title='Agents avg score', 
                 figsize=(15, 6), 
                 polyfit_deg=None):
     """Plot scores over time. Optionally will draw a line showing the trend
@@ -117,7 +117,7 @@ def plot_scores(scores,
     fig, ax = plt.subplots(figsize=figsize)
     plt.plot(scores)
     
-    max_score = max(scores)
+    max_score = max(np.round(scores, 3))
     idx_max = np.argmax(scores)
     plt.scatter(idx_max, max_score, c='r', linewidth=3)
     
@@ -128,52 +128,6 @@ def plot_scores(scores,
     plt.title(title)
     ax.set_ylabel('Score')
     ax.set_xlabel('Epochs')
-    ax.legend(['Score', 'Trend', 'Max score: {}'.format(max_score)])
-
-def plot_ma_scores(scores, 
-                   title='DQN - Scores rolling window and solution', 
-                   window=100, 
-                   solved_when=13, 
-                   figsize=(15, 6)):
-    
-    df = pd.DataFrame(scores)
-    ma = df.rolling(window).mean().dropna()
-    
-    solved_at = ma[ma[0] >=solved_when].iloc[0].name
-    
-    max_ma = np.max(ma.values)
-    idx_max = np.argmax(ma.values) + window
-    
-    
-    
-    fig, ax = plt.subplots(figsize=figsize)
-    plt.plot(ma)
-    plt.axvline(solved_at, color='green', linestyle='--')
-    plt.scatter(idx_max, max_ma, c='r', linewidth=3)
-    
-    plt.title(title)
-    ax.set_ylabel('MA scores'.format(window))
-    ax.set_xlabel('Epochs')
-    ax.legend(['Last {} scores'.format(window), 
-               'Solved at: {}'.format(solved_at), 
-               'Max MA score: {}'.format(max_ma)])
-
-def compare_ma_scores(*scores, 
-                      title='DQN solutions comparison', 
-                      window=100, 
-                      legend=[], 
-                      figsize=(15, 6)):
-    
-    fig, ax = plt.subplots(figsize=figsize)
-    
-    for score in scores:
-        df = pd.DataFrame(score)
-        ma = df.rolling(window).mean().dropna()
-        plt.plot(ma)
-    
-    plt.title(title)
-    ax.set_ylabel('MA scores'.format(window))
-    ax.set_xlabel('Epochs')
-    ax.legend(legend)
+    ax.legend(['Score', 'Trend', 'Max avg score: {}'.format(max_score)])
     
     
