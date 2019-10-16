@@ -1,4 +1,6 @@
 import gym
+import time
+import datetime
 import numpy as np
 import pandas as pd
 import torch.nn as nn
@@ -130,4 +132,8 @@ def plot_scores(scores,
     ax.set_xlabel('Epochs')
     ax.legend(['Score', 'Trend', 'Max avg score: {}'.format(max_score)])
     
-    
+def get_time_elapsed(start, end=None):
+    if end is None:
+        end = time.time()
+    elapsed = round(end-start)
+    return str(datetime.timedelta(seconds=elapsed))

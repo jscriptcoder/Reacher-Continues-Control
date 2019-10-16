@@ -1,4 +1,6 @@
+import time
 import numpy as np
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -8,6 +10,7 @@ from .critic import Critic
 #from .policy import Policy
 from .device import device
 from .data import Data
+from .utils import get_time_elapsed
 
 class A2CAgent:
     name = 'a2c'
@@ -204,8 +207,11 @@ class A2CAgent:
     
     def train(self):
         num_episodes = self.config.num_episodes
+        times_solved = self.config.times_solved
         env_solved = self.config.env_solved
         envs = self.config.envs
+        
+        start = time.time()
         
         scores = []
         best_score = -np.inf
@@ -217,7 +223,7 @@ class A2CAgent:
                 if self.done:
                     break
             
-            score = self.eval_episode()
+            score = self.eval_episode(1) # we evaluate only once
             scores.append(score)
             
             print('\rEpisode {}\tPolicy loss: {:.3f}\tValue loss: {:.3f}\tAvg Score: {:.3f}'\
@@ -234,18 +240,34 @@ class A2CAgent:
                 torch.save(self.value.state_dict(), '{}_critic_checkpoint.ph'.format(self.name))
                 
             if score >= env_solved:
-                print('\nEnvironment solved!')
-                break;
+                # For speed reasons I'm gonna do a full evaluation after the env has been
+                # solved the first time.
+                
+                print('\nRunning full evaluation...')
+                
+                # We now evaluate times_solved-1 (it's been already solved once), 
+                # since the condition to consider the env solved is to reach the target 
+                # reward at least an average of times_solved times consecutively
+                avg_score = self.eval_episode(times_solved-1)
+                
+                if avg_score >= env_solved:
+                    time_elapsed = get_time_elapsed(start)
+                    
+                    print('Environment solved {} times consecutively!'.format(times_solved))
+                    print('Avg score: {:.3f}'.format(avg_score))
+                    print('Time elapsed: {}'.format(time_elapsed))
+                    break;
+                else:
+                    print('No success. Avg score: {:.3f}'.format(avg_score))
         
         envs.close()
         
         return scores
     
-    def eval_episode(self):
+    def eval_episode(self, times_solved):
         envs = self.config.envs
-        times_solved = self.config.times_solved
         
-        total_score = 0
+        total_reward = 0
         
         for _ in range(times_solved):
             state = envs.reset()
@@ -254,12 +276,12 @@ class A2CAgent:
                 state, reward, done, _ = envs.step(action.cpu().numpy())
                 
                 avg_reward = np.mean(reward)
-                total_score += avg_reward
+                total_reward += avg_reward
     
                 if np.array(done).all():
                     break
                 
-        return total_score / times_solved
+        return total_reward / times_solved
     
     def summary(self, agent_name='A2C Agent'):
         print('{}:'.format(agent_name))
