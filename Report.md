@@ -55,16 +55,20 @@ We're gonna evaluate the environment after each episode just once. When we reach
 
 ### Algorithms
 1. **Advantage Actor Critic or A2C**:
+Policy Based algorithms, such as Policy Gradient, try to find directly the optimal policy without using Q-values like in Value Based algorithms. The problem with Policy Based methods like REINFORCE, is that they tend to have high variance. Once solution to reduce variance and increase stability is to substract a baseline to the cumulative reward. 
+
+More efficient methods involved using a second network, Critic, which will estimate the value function, Q-value or state value (V value), helping the Actor with updating the policy distribution in the direction suggested by the Critic (such as with policy gradients).
+
+Advantage Actor Critic comes from the idea of using the advantage, _A(s,a) = Q(s,a) - V(s)_, instead of Q-values. The set of equations below illustrates the classic variants of actor critic methods (with respect to REINFORCE)
+<img src="https://miro.medium.com/max/3591/1*T1zTYVLkMNngE09fOqTkSA.png" />
 
 2. **Proximal Policy Optimization or PPO**:
 
 ### Neural Networks Architecture
 
 1. **A2C**
-<img src="images/vanilla_dqn_agent.png" width="450" title="Vanilla DQN Agent" />
 
 2. **PPO**
-<img src="images/double_dqn_agent.png" width="450" title="Double DQN Agent" />
 
 ## Plot of Rewards
 
@@ -73,5 +77,3 @@ We're gonna evaluate the environment after each episode just once. When we reach
 2. **PPO**:
 
 ## Ideas for Future Work
-
-## References
