@@ -133,6 +133,14 @@ def plot_scores(scores,
     ax.legend(['Score', 'Trend', 'Max avg score: {}'.format(max_score)])
     
 def get_time_elapsed(start, end=None):
+    """Returns a human readable (HH:mm:ss) time difference between two times
+    
+    Args:
+        start (float)
+        end (float): optional value
+            Default: now
+    """
+    
     if end is None:
         end = time.time()
     elapsed = round(end-start)

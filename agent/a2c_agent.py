@@ -13,6 +13,17 @@ from .data import Data
 from .utils import get_time_elapsed
 
 class A2CAgent:
+    """Advantage Actor Critic Agent
+    
+    Args:
+        config (Config): holds the list of configuration items
+    
+    Attributes:
+        name {str}: type/name of agent
+            Default: 'a2c'
+    
+    """
+    
     name = 'a2c'
     
     def __init__(self, config):
@@ -50,6 +61,8 @@ class A2CAgent:
         self.done = False
         
     def act(self, state):
+        """Will make it easier and efficient to get an action based on a state"""
+        
         self.policy.eval()
         with torch.no_grad():
 #            _, action, _, _, _ = self.policy(state)
@@ -59,6 +72,8 @@ class A2CAgent:
         return action
     
     def collect_data(self):
+        """Will take care of collecting trajectories for learning purposes"""
+        
         steps = self.config.steps
         envs = self.config.envs
         state = self.state
@@ -78,6 +93,8 @@ class A2CAgent:
             reward = torch.FloatTensor(reward).unsqueeze(-1).to(device)
             mask = torch.FloatTensor(1 - done).unsqueeze(-1).to(device)
             
+            # Stores trajectory, plus some extra information such as 
+            # log_probs, entropies, values and masks (is terminal)
             self.data.add(states=state, 
                           actions=action, 
                           log_probs=log_prob, 
@@ -103,6 +120,16 @@ class A2CAgent:
         return next_value
     
     def compute_return(self, next_value):
+        """We offer the possibility of computing returns using
+        Generalized Advantage Estimation algorithm, which will be
+        parametrized by use_gae.
+        
+        See: https://arxiv.org/abs/1506.02438
+        
+        Args:
+            next_value (torch.Tensor): next value estimated
+        """
+        
         num_agents = self.config.num_agents
         use_gae = self.config.use_gae
         gamma = self.config.gamma
@@ -139,6 +166,17 @@ class A2CAgent:
         return returns
     
     def update(self, policy_loss, value_loss):
+        """Updates the weights by backpropagating the losses of the two
+        (or combined) networks.
+        
+        Will also clip gradients according to grad_clip_actor/critic 
+        configuration item,.
+        
+        Args:
+            policy_loss (torch.FloatTensor)
+            value_loss (torch.FloatTensor)
+        """
+        
 #        grad_clip = self.config.grad_clip
         grad_clip_actor = self.config.grad_clip_actor
         grad_clip_critic = self.config.grad_clip_critic
@@ -171,6 +209,13 @@ class A2CAgent:
         self.optim_value.step()
     
     def learn(self, returns):
+        """Computes the losses of the policy and value.
+        We're using the advantage as a base line function.
+        
+        Args:
+            returns {List of torch.Tensor}: computed returns
+        """
+        
         ent_weight = self.config.ent_weight
         val_loss_weight = self.config.val_loss_weight
         
@@ -187,7 +232,7 @@ class A2CAgent:
         # A(s, a) = r + γV(s') - V(s)
         advantages = returns - values.detach()
         
-        # Normalize the advantages
+        # I noticed an improvement by normilizing the advantage
         advantages = (advantages - advantages.mean()) / advantages.std()
         
         policy_loss = (-log_probs * advantages - ent_weight * entropies).mean()
@@ -198,6 +243,12 @@ class A2CAgent:
         return policy_loss, value_loss
     
     def step(self):
+        """
+        Performs a step in the A2C algorithm:
+            1. Collect trajectories
+            2. Compute returns/GAE
+            3. Calculate losses and update
+        """
         
         next_value = self.collect_data()
         returns = self.compute_return(next_value)
@@ -206,6 +257,11 @@ class A2CAgent:
         return policy_loss, value_loss
     
     def train(self):
+        """Runs the training with evaluation and some debugging
+        based on configuration items. Will also save checkpoints
+        (policy and value weights) every time the best score is beaten
+        """
+        
         num_episodes = self.config.num_episodes
         times_solved = self.config.times_solved
         env_solved = self.config.env_solved
@@ -265,6 +321,13 @@ class A2CAgent:
         return scores
     
     def eval_episode(self, times_solved):
+        """Evaluation method. 
+        Will run times_solved times and avarage the total reward obtained
+        
+        Args:
+            times_solved (int): how many times we run an episode
+        """
+        
         envs = self.config.envs
         
         total_reward = 0

@@ -5,12 +5,27 @@ import torch.nn.functional as F
 from .a2c_agent import A2CAgent
 
 class PPOAgent(A2CAgent):
+    """Proximal Policy Optimization Agent (https://arxiv.org/abs/1707.06347)
+    Reuses lots of logic from A2C algorithm. Only difference is in the
+    way it learns.
+    
+    Args:
+        config (Config): holds the list of configuration items
+    
+    Attributes:
+        name {str}: type/name of agent
+            Default: 'ppo'
+    
+    """
+    
     name = 'ppo'
     
     def __init__(self, config):
         super().__init__(config)
     
     def random_indices(self, len_states, shuffle=True):
+        """Helper method, generator of random indices to sample mini batches"""
+        
         ppo_batch_size = self.config.ppo_batch_size
         indices = np.arange(len_states)
         
@@ -25,11 +40,22 @@ class PPOAgent(A2CAgent):
         
         rest = len_states % ppo_batch_size
         if rest > 0:
+            # yields the left-overs
             yield indices[-rest:]
         
         
     
     def learn(self, returns):
+        """Computes the losses of the policy and value according to PPO algorithm.
+        Will sample ppo_epochs times a mini-batch of previously collected 
+        trajectories. Then calculates the surrogate function and clip it to
+        avoid swaying two far from the previous policy.
+        
+        
+        Args:
+            returns {List of torch.Tensor}: computed returns
+        """
+        
         ent_weight = self.config.ent_weight
         val_loss_weight = self.config.val_loss_weight
         ppo_clip = self.config.ppo_clip

@@ -14,7 +14,9 @@ class Actor(nn.Module):
         self.layers = nn.ModuleList([nn.Linear(dim_in, dim_out) \
                                      for dim_in, dim_out \
                                      in zip(dims[:-1], dims[1:])])
-    
+        
+        # Learnable parameter. Holds the standard deviation value (sigma)
+        # of the probability distribution of a continuous action space
         self.std = nn.Parameter(torch.ones(action_size) * std)
         
         self.activ = activ
@@ -29,8 +31,11 @@ class Actor(nn.Module):
         
         for layer in self.layers[1:-1]:
             x = self.activ(layer(x))
-
-        mean = torch.tanh(self.layers[-1](x))
+        
+        mean = torch.tanh(self.layers[-1](x)) # (-1, 1)
+        
+        # Always positive value.
+        # See https://sefiks.com/2017/08/11/softplus-as-a-neural-networks-activation-function/
         std = F.softplus(self.std)
         
         dist = Normal(mean, std)
