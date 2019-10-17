@@ -62,8 +62,10 @@ More efficient methods involved using a second network, Critic, which will estim
 
 Advantage Actor Critic comes from the idea of using the advantage, _A(s,a) = Q(s,a) - V(s)_, instead of Q-values. The set of equations below illustrates the classic variants of actor critic methods (with respect to REINFORCE):
 
-<img src="images/pg_ac.png" />
-<sup><i>Image taken from CMU CS10703 lecture slides</i></sup>
+<center>
+  <img src="images/pg_ac.png" />
+  <sup><i>Image taken from CMU CS10703 lecture slides</i></sup>
+</center>
 
 There are a few very [interesting](https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f) [articles](https://sergioskar.github.io/Actor_critics/) explaining A2C (and A3C)
 
