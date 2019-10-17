@@ -2,8 +2,15 @@
 
 ## Learning Algorithm
 
-- Advantage Actor Critic. [Paper]()
-- Proximal Policy Optimization. [Paper]()
+What we're dealing with here is an envirornment with continuous observation space that consists of 33 variables corresponding to position, rotation, velocity, and angular velocities of the arm, and continues action space, a vector with 4 numbers, corresponding to torque applicable to two joints. Policy Gradient methods are the right fit for continuos action space.
+
+I'll try to solve this environment using two PG algorithms, using the latest Actor-Critic methods:
+
+Proximal Policy Optimization or PPO, which will be built on top of A2C. Paper
+I'll be also computing returns using Generalized Advantage Estimation or GAE. Paper
+
+- [Advantage Actor Critic or A2C](https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f). [A3C paper](https://arxiv.org/abs/1602.01783). Note A3C is the asyncronous version of A2C
+- [Proximal Policy Optimization](https://medium.com/@jonathan_hui/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12). [Paper](https://arxiv.org/abs/1707.06347)
 
 ### Hyperparameters
 
