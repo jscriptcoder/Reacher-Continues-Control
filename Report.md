@@ -13,6 +13,43 @@ I'll be also computing advantages using λ-returns with Generalized Advantage Es
 
 ### Hyperparameters
 
+Following is a list of all the hyperparameters used and their values:
+
+#### General params
+- ```seed = 0```
+- ```num_agents = 20```
+- ```num_episodes = 1000```
+- ```steps = 2000```, steps done per episode, until ```done=True```
+- ```state_size = 33```
+- ```action_size = 4```, vector of 4 values ranging between -1 and 1
+- ```gamma = 0.99```, discount factor
+- ```ent_weight = 0.01```, entropy coefficient for exploration
+- ```val_loss_weight = 1```. This weight makes sense when using only one network with two heads for actor and critic, controlling how much weight the value loss has over the combined loss. Since I'm using two separate networks its value should be 1
+- ```env_solved = 30```
+- ```times_solved = 100```
+
+#### Actor (Policy network) params
+- ```activ_actor = F.relu```
+- ```lr_actor = 3e-4```
+- ```hidden_actor = (512, 512)```, two hidden layers
+- ```optim_actor = Adam```
+- ```grad_clip_actor = 5```
+
+#### Critic (Value network) params
+- ```activ_critic = F.relu```
+- ```lr_critic = 3e-4```
+- ```hidden_critic = (512, 512)```, two hidden layers
+- ```optim_critic = Adam```
+- ```grad_clip_critic = 5```
+
+#### PPO hyperparams
+- ```ppo_clip = 0.2```
+- ```ppo_epochs = 10```. Controls how many times we're gonna update the policy using mini-batches of previously collected trajectories
+- ```ppo_batch_size = 32```
+
+#### GAE
+- ```use_gae = True```
+- ```lamda = 0.95```, parameter to compute GAE
 
 ### Algorithms
 1. **Advantage Actor Critic or A2C**:
