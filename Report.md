@@ -60,7 +60,9 @@ Policy Based algorithms, such as Policy Gradient, try to find directly the optim
 More efficient methods involved using a second network, Critic, which will estimate the value function, Q-value or state value (V value), helping the Actor with updating the policy distribution in the direction suggested by the Critic (such as with policy gradients).
 
 Advantage Actor Critic comes from the idea of using the advantage, _A(s,a) = Q(s,a) - V(s)_, instead of Q-values. The set of equations below illustrates the classic variants of actor critic methods (with respect to REINFORCE)
+
 <img src="https://miro.medium.com/max/3591/1*T1zTYVLkMNngE09fOqTkSA.png" />
+[Source](https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f)
 
 2. **Proximal Policy Optimization or PPO**:
 
