@@ -8,9 +8,17 @@
 
 ### Introduction
 
-For this project, you will work with the [Reacher](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#reacher) environment.
+For this project, I'll be working with the [Reacher](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#reacher) environment.
 
-![Trained Agent][image1]
+#### Demo
+1. Untrained A2C Agent:
+<img src="recordings/untrained_a2c.gif" width="500" />
+
+2. Trained A2C agent:
+<img src="recordings/trained_a2c.gif" width="500" />
+
+2. Trained PPO agent:
+<img src="recordings/trained_ppo.gif" width="500" />
 
 In this environment, a double-jointed arm can move to target locations. A reward of +0.1 is provided for each step that the agent's hand is in the goal location. Thus, the goal of your agent is to maintain its position at the target location for as many time steps as possible.
 
@@ -32,7 +40,7 @@ Note that your project submission need only solve one of the two versions of the
 
 The task is episodic, and in order to solve the environment,  your agent must get an average score of +30 over 100 consecutive episodes.
 
-#### Option 2: Solve the Second Version
+#### Option 2: Solve the Second Version ✅
 
 The barrier for solving the second version of the environment is slightly different, to take into account the presence of many agents.  In particular, your agents must get an average score of +30 (over 100 consecutive episodes, and over all agents).  Specifically,
 - After each episode, we add up the rewards that each agent received (without discounting), to get a score for each agent.  This yields 20 (potentially different) scores.  We then take the average of these 20 scores. 
