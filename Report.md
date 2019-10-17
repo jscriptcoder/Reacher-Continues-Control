@@ -1,4 +1,4 @@
-# Report: Reacher using Policy Gradient methods
+# Report: Reacher using Policy Gradient
 
 ## Learning Algorithm
 
