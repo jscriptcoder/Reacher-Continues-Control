@@ -54,7 +54,7 @@ We're gonna evaluate the environment after each episode just once. When we reach
 - ```lamda = 0.95```, parameter to compute GAE
 
 ### Algorithms
-1. **Advantage Actor Critic or A2C**:
+**Advantage Actor Critic or A2C**:
 Policy Based algorithms, such as Policy Gradient, try to find directly the optimal policy without using Q-values like in Value Based algorithms. The problem with Policy Based methods like REINFORCE, is that they tend to have high variance. Once solution to reduce variance and increase stability is to substract a baseline to the cumulative reward. 
 
 More efficient methods involved using a second network, Critic, which will estimate the value function, Q-value or state value (V value), helping the Actor with updating the policy distribution in the direction suggested by the Critic (such as with policy gradients).
@@ -65,7 +65,7 @@ Advantage Actor Critic comes from the idea of using the advantage, _A(s,a) = Q(s
 
 There are a few very [interesting](https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f) [articles](https://sergioskar.github.io/Actor_critics/) explaining A2C (and A3C)
 
-2. **Proximal Policy Optimization or PPO**:
+**Proximal Policy Optimization or PPO**:
 TODO
 
 ### Neural Networks Architecture
