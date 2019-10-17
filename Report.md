@@ -25,6 +25,8 @@ Following is a list of all the hyperparameters used and their values:
 - ```gamma = 0.99```, discount factor
 - ```ent_weight = 0.01```, entropy coefficient for exploration
 - ```val_loss_weight = 1```. This weight makes sense when using only one network with two heads for actor and critic, controlling how much weight the value loss has over the combined loss. Since I'm using two separate networks its value should be 1
+
+We're gonna evaluate the environment after each episode just once. When we reach ```env_solved``` avarage score, then we'll run a full evaluation, that means, we're gonna evaluate ```times_solved``` times (this is required to solve the env) and avarage all the rewards
 - ```env_solved = 30```
 - ```times_solved = 100```
 
