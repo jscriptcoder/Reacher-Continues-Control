@@ -6,11 +6,10 @@ What we're dealing with here is an envirornment with continuous observation spac
 
 I'll try to solve this environment using two PG algorithms, using the latest Actor-Critic methods:
 
-Proximal Policy Optimization or PPO, which will be built on top of A2C. Paper
-I'll be also computing returns using Generalized Advantage Estimation or GAE. Paper
+- Advantage Actor Critic or A2C. [A3C paper](https://arxiv.org/abs/1602.01783). Note A3C is the asyncronous version of A2C
+- Proximal Policy Optimization. [Paper](https://arxiv.org/abs/1707.06347)
 
-- [Advantage Actor Critic or A2C](https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f). [A3C paper](https://arxiv.org/abs/1602.01783). Note A3C is the asyncronous version of A2C
-- [Proximal Policy Optimization](https://medium.com/@jonathan_hui/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12). [Paper](https://arxiv.org/abs/1707.06347)
+I'll be also computing advantages using λ-returns with Generalized Advantage Estimation or GAE. [Paper](https://arxiv.org/abs/1506.02438). Policy gradient, while unbiased, have high variance. This paper proposes ways to dramatically reduce variance, but this unfortunately comes at the cost of introducing bias. [Source](https://danieltakeshi.github.io/2017/04/02/notes-on-the-generalized-advantage-estimation-paper/)
 
 ### Hyperparameters
 
@@ -36,3 +35,4 @@ I'll be also computing returns using Generalized Advantage Estimation or GAE. Pa
 
 ## Ideas for Future Work
 
+## References
