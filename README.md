@@ -12,13 +12,13 @@ For this project, I'll be working with the [Reacher](https://github.com/Unity-Te
 
 #### Demo
 1. Untrained A2C Agent:
-<img src="recordings/untrained_a2c.gif" width="500" />
+<img src="recordings/untrained_a2c.gif?v=1" width="500" />
 
 2. Trained A2C agent:
-<img src="recordings/trained_a2c.gif" width="500" />
+<img src="recordings/trained_a2c.gif?v=1" width="500" />
 
 2. Trained PPO agent:
-<img src="recordings/trained_ppo.gif" width="500" />
+<img src="recordings/trained_ppo.gif?v=1" width="500" />
 
 In this environment, a double-jointed arm can move to target locations. A reward of +0.1 is provided for each step that the agent's hand is in the goal location. Thus, the goal of your agent is to maintain its position at the target location for as many time steps as possible.
 
