@@ -76,7 +76,7 @@ The idea or main motivation behind PPO is to answer the question: how can we tak
 
 PPO introduces another innovation which is running x epochs of gradient ascent over mini-batches of previously collected trajectories. This will make updating the policy a lot more efficient. But this introduces an important issue. If we keep reusing old trajectories and updating our policy, at some point the new policy might become different enough from the old one, so that all the approximations we made could become invalid. This is addressed by clip the ratio between the new and old policy.
 
-Follow [these](https://openai.com/blog/openai-baselines-ppo/) [links](https://spinningup.openai.com/en/latest/algorithms/ppo.html) for some [interesting](https://towardsdatascience.com/proximal-policy-optimization-ppo-with-sonic-the-hedgehog-2-and-3-c9c21dbed5e) [readings](https://medium.com/@jonathan_hui/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12) about PPO
+Follow [these](https://openai.com/blog/openai-baselines-ppo/) [links](https://spinningup.openai.com/en/latest/algorithms/ppo.html) for some [interesting](https://towardsdatascience.com/proximal-policy-optimization-ppo-with-sonic-the-hedgehog-2-and-3-c9c21dbed5e) [readings](https://medium.com/@jonathan_hui/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12) about PPO.
 
 ### Neural Networks Architecture
 
@@ -89,6 +89,8 @@ In the forward pass, we use ReLU activation function. The last layer is [passed 
 
 2. **PPO**
 <img src="images/ppo_net.png" width="450" />
+
+We use ReLU activation function in all hidden layers. Last layer will just output our predicted Q-value or value state, V(s).
 
 ## Plot of Rewards
 
