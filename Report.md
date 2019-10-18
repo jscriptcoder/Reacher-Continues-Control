@@ -63,7 +63,8 @@ More efficient methods involved using a second network, Critic, which will estim
 Advantage Actor Critic comes from the idea of using the advantage, _A(s,a) = Q(s,a) - V(s)_, instead of Q-values. The set of equations below illustrates the classic variants of actor critic methods (with respect to REINFORCE):
 
 <p align="center">
-  <img src="images/pg_ac.png" />
+  <img src="images/pg_ac.png" width="600" />
+  <br />
   <sup><i>Image taken from CMU CS10703 lecture slides</i></sup>
 </p>
 
@@ -80,10 +81,10 @@ Follow [these](https://openai.com/blog/openai-baselines-ppo/) [links](https://sp
 ### Neural Networks Architecture
 
 1. **A2C**
-<img src="images/a2c_net.png" />
+<img src="images/a2c_net.png" width="600" />
 
 2. **PPO**
-<img src="images/ppo_net.png" />
+<img src="images/ppo_net.png" width="600" />
 
 ## Plot of Rewards
 
