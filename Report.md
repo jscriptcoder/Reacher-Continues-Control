@@ -6,8 +6,8 @@ What we're dealing with here is an envirornment with continuous observation spac
 
 I'll try to solve this environment with two PG algorithms, using the latest Actor-Critic methods:
 
-- Advantage Actor Critic or A2C. [A3C paper](https://arxiv.org/abs/1602.01783). Note A3C is the asyncronous version of A2C
-- Proximal Policy Optimization. [Paper](https://arxiv.org/abs/1707.06347)
+- Advantage Actor Critic (a.k.a A2C). [A3C paper](https://arxiv.org/abs/1602.01783). Note A3C is the asyncronous version of A2C
+- Proximal Policy Optimization (a.k.a PPO). [Paper](https://arxiv.org/abs/1707.06347)
 
 I'll be also computing advantages using λ-returns with Generalized Advantage Estimation or GAE. [Paper](https://arxiv.org/abs/1506.02438). Policy gradient, while unbiased, have high variance. This paper proposes ways to dramatically reduce variance, but this unfortunately comes at the cost of introducing bias. [Source](https://danieltakeshi.github.io/2017/04/02/notes-on-the-generalized-advantage-estimation-paper/)
 
