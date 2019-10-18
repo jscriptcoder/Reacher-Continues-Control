@@ -35,7 +35,7 @@ We're gonna evaluate the environment after each episode just once. When we reach
 - ```lr_actor = 3e-4```
 - ```hidden_actor = (512, 512)```, two hidden layers
 - ```optim_actor = Adam```
-- ```grad_clip_actor = 5```
+- ```grad_clip_actor = 5```, will take care of clipping the gradients to address exploding/vanishing gradient problem.
 
 #### Critic (Value network) params
 - ```activ_critic = F.relu```
