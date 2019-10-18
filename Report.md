@@ -46,7 +46,7 @@ We're gonna evaluate the environment after each episode just once. When we reach
 
 #### PPO hyperparams
 - ```ppo_clip = 0.2```
-- ```ppo_epochs = 10```. Controls how many times we're gonna update the policy using mini-batches of previously collected trajectories
+- ```ppo_epochs = 10```, controls how many times we're gonna update the policy using mini-batches of previously collected trajectories
 - ```ppo_batch_size = 32```
 
 #### GAE
