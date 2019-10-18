@@ -80,11 +80,8 @@ Follow [these](https://openai.com/blog/openai-baselines-ppo/) [links](https://sp
 
 ### Neural Networks Architecture
 
-1. **A2C**
+I'm using the same architecture for both A2C and PPO:
 <img src="images/a2c_net.png" width="450" />
-
-2. **PPO**
-<img src="images/ppo_net.png" width="450" />
 
 **Notes about Actor network:** We need to add, since it's not visible when printing the network, another learnable parameter, [_std_](https://github.com/jscriptcoder/Reacher-Continuous-Control/blob/master/agent/actor.py#L20), which holds the standard deviation value (sigma) of the probability distribution of a continuous action space.
 
