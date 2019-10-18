@@ -71,7 +71,11 @@ There are a few very [interesting](https://towardsdatascience.com/understanding-
 
 **Proximal Policy Optimization or PPO**:
 
-TODO
+The idea or main motivation behind PPO is to answer the question: how can we take the biggest possible improvement step on a policy using the data we currently have, without stepping so far that we accidentally cause performance collapse?. We want to avoid having too large policy updates. To do that, we use a ratio that will tells us the difference between our new and old policy and clip this ratio. By doing that will ensure that our policy update will not be too large. 
+
+PPO introduces another innovation which is running x epochs of gradient ascent over mini-batches of previously collected trajectories. This will make updating the policy a lot more efficient. But this introduces an important issue. If we keep reusing old trajectories and updating our policy, at some point the new policy might become different enough from the old one, so that all the approximations we made could become invalid. This is addressed by clip the ratio between the new and old policy.
+
+Follow [these](https://openai.com/blog/openai-baselines-ppo/) [links](https://spinningup.openai.com/en/latest/algorithms/ppo.html) for some [interesting](https://towardsdatascience.com/proximal-policy-optimization-ppo-with-sonic-the-hedgehog-2-and-3-c9c21dbed5e) [readings](https://medium.com/@jonathan_hui/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12) about PPO
 
 ### Neural Networks Architecture
 
