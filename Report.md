@@ -80,8 +80,10 @@ Follow [these](https://openai.com/blog/openai-baselines-ppo/) [links](https://sp
 ### Neural Networks Architecture
 
 1. **A2C**
+<img src="images/a2c_net.png" />
 
 2. **PPO**
+<img src="images/ppo_net.png" />
 
 ## Plot of Rewards
 
