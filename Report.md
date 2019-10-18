@@ -108,10 +108,10 @@ PPO was proven to be more effective than A2C in this environment, reaching the t
 
 There are many other algorithms I would love to work on, and would be interesting to see how they perform in this environment:
 
-Deep Deterministic Policy Gradient (a.k.a. DDPG). [Paper](https://arxiv.org/abs/1509.02971)
-The Asynchronous version of A2C (a.k.a. A3C). [Paper](https://arxiv.org/abs/1602.01783)
-Trust Region Policy Optimization (TRPO), which PPO is an improvement of. [Paper](https://arxiv.org/abs/1502.05477)
-Twin Delayed Deep Deterministic Policy Gradients (a.k.a TD3), a successor to DDPG. [Paper](https://arxiv.org/abs/1802.09477)
-Soft Actor-Critic, which is one of the most advanced actor critic methods. [Paper](https://arxiv.org/abs/1801.01290)
+- Deep Deterministic Policy Gradient (a.k.a. DDPG). [Paper](https://arxiv.org/abs/1509.02971)
+- The Asynchronous version of A2C (a.k.a. A3C). [Paper](https://arxiv.org/abs/1602.01783)
+- Trust Region Policy Optimization (TRPO), which PPO is an improvement of. [Paper](https://arxiv.org/abs/1502.05477)
+- Twin Delayed Deep Deterministic Policy Gradients (a.k.a TD3), a successor to DDPG. [Paper](https://arxiv.org/abs/1802.09477)
+- Soft Actor-Critic, which is one of the most advanced actor critic methods. [Paper](https://arxiv.org/abs/1801.01290)
 
 Even though I spent lots of time hyperparameter-tunning to get it right, more exploration of the effects of tunning the different hyperparameters and model architectures could definitely improve the performance, regardless the algorithm used.
