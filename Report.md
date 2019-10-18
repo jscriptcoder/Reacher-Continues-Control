@@ -93,7 +93,9 @@ In the forward pass, we use ReLU activation function. The last layer is [passed 
 ## Plot of Rewards
 
 1. **A2C**:
+<img src="images/a2c_rewards.png" />
 
 2. **PPO**:
+<img src="images/ppo_rewards.png" />
 
 ## Ideas for Future Work
