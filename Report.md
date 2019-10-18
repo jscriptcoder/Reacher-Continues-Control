@@ -90,7 +90,7 @@ In the forward pass, we use ReLU activation function. The last layer is [passed 
 2. **PPO**
 <img src="images/ppo_net.png" width="450" />
 
-We use ReLU activation function in all hidden layers. Last layer will just output our predicted Q-value or value state, V(s).
+We use ReLU activation function in all hidden layers. Last layer will just output our predicted Q-value, Q(s,a), or value state, V(s).
 
 ## Plot of Rewards
 
