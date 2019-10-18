@@ -83,6 +83,10 @@ Follow [these](https://openai.com/blog/openai-baselines-ppo/) [links](https://sp
 1. **A2C**
 <img src="images/a2c_net.png" width="450" />
 
+We need to add, since it's not visible when printing the network, another learnable parameter, [_std_](https://github.com/jscriptcoder/Reacher-Continuous-Control/blob/master/agent/actor.py#L20), which holds the standard deviation value (sigma) of the probability distribution of a continuous action space.
+
+In the forward pass, we use ReLU activation function. The last layer is [passed through](https://github.com/jscriptcoder/Reacher-Continuous-Control/blob/master/agent/actor.py#L35) a Tanh activation to get values between -1 and 1, which will output the mean of the probability distribution. Sigma is [passed through](https://github.com/jscriptcoder/Reacher-Continuous-Control/blob/master/agent/actor.py#L39) a [Softplus](https://sefiks.com/2017/08/11/softplus-as-a-neural-networks-activation-function/) function to get always positive values. These are used to calculate the [normal distribution](https://github.com/jscriptcoder/Reacher-Continuous-Control/blob/master/agent/actor.py#L41) for the continous action.
+
 2. **PPO**
 <img src="images/ppo_net.png" width="450" />
 
