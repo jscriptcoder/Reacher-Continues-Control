@@ -95,7 +95,13 @@ In the forward pass, we use ReLU activation function. The last layer is [passed 
 1. **A2C**:
 <img src="images/a2c_rewards.png" />
 
+As seen in the [jupyter notebook](https://nbviewer.jupyter.org/github/jscriptcoder/Reacher-Continuous-Control/blob/master/Continuous_Control.ipynb), the environment was solved (100 times consecutively by all the 20 agents) with an avarage score of 30.131, after 766 episodes and 4:04:29 running on GPU
+
 2. **PPO**:
 <img src="images/ppo_rewards.png" />
+
+The environment was solved with an avarage score of 30.364, after 103 episodes and 1:34:43 running on GPU.
+
+PPO was proven to be more effective than A2C in this environment, reaching the target score way quicker.
 
 ## Ideas for Future Work
