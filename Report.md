@@ -40,7 +40,7 @@ We're gonna evaluate the environment after each episode just once. When we reach
 #### Critic (Value network) params
 - ```activ_critic = F.relu```
 - ```lr_critic = 3e-4```
-- ```hidden_critic = (512, 512)```, two hidden layers
+- ```hidden_critic = (512, 512)```
 - ```optim_critic = Adam```
 - ```grad_clip_critic = 5```
 
