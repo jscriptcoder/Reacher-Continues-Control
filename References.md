@@ -22,8 +22,8 @@
 
 - [Github] **PPO-PyTorch**, by [Nikhil Barhate](https://github.com/nikhilbarhate99): https://github.com/nikhilbarhate99/PPO-PyTorch
 
-- [Github] **PPO-PyTorch**, by [Abhisek Panda](https://github.com/Abhipanda4)*: https://github.com/Abhipanda4/PPO-PyTorch
+- [Github] **PPO-PyTorch**, by [Abhisek Panda](https://github.com/Abhipanda4): https://github.com/Abhipanda4/PPO-PyTorch
 
-- [Github] **move37**, [Colin Skow](https://github.com/colinskow): https://github.com/colinskow/move37
+- [Github] **move37**, by [Colin Skow](https://github.com/colinskow): https://github.com/colinskow/move37
 
 - [Github] **torchrl**, by [Rchal](https://github.com/RchalYang): https://github.com/RchalYang/torchrl
