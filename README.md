@@ -64,7 +64,7 @@ The environment is considered solved, when the average (over 100 episodes) of th
 
 Follow the instructions in `Continuous_Control.ipynb` to get started with training your own agent!. 
 
-**Note**:Sometimes Github cannot load Jupyter notebooks. If that's the case, [click here](https://nbviewer.jupyter.org/github/jscriptcoder/Reacher-Continuous-Control/blob/master/Continuous_Control.ipynb) to visualize it using nbviewer.
+**Note:** Sometimes Github cannot load Jupyter notebooks. If that's the case, [click here](https://nbviewer.jupyter.org/github/jscriptcoder/Reacher-Continuous-Control/blob/master/Continuous_Control.ipynb) to visualize it using nbviewer.
 
 ### References
 See [References](References.md) for articles, papers and github repos where I got most of the inspiration from to accomplish this project.
