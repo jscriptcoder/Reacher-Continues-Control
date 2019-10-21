@@ -1,16 +1,16 @@
 # References
 
-- [Article] **Understanding Actor Critic Methods and A2C:** https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f
-
 - [Paper] **Asynchronous Methods for Deep Reinforcement Learning**: https://arxiv.org/abs/1602.01783
+
+- [Paper] **Proximal Policy Optimization Algorithms:** https://arxiv.org/abs/1707.06347
+
+- [Article] **Understanding Actor Critic Methods and A2C:** https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f
 
 - [Article] **The idea behind Actor-Critics and how A2C and A3C improve them**: https://sergioskar.github.io/Actor_critics/
 
 - [Article] **OpenAI Baselines: ACKTR & A2C**: https://openai.com/blog/baselines-acktr-a2c/
 
-- [Article] **Proximal Policy Optimization:** https://openai.com/blog/openai-baselines-ppo/
-
-- [Paper] **Proximal Policy Optimization Algorithms:** https://arxiv.org/abs/1707.06347
+- [Article] **Proximal Policy Optimization:** https://openai.com/blog/openai-baselines-ppo
 
 - [Article] **RL — Proximal Policy Optimization (PPO) Explained**: https://medium.com/@jonathan_hui/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12
 
