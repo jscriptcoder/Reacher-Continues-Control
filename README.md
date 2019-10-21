@@ -66,3 +66,5 @@ Follow the instructions in `Continuous_Control.ipynb` to get started with traini
 
 ### Note:
 Sometimes Github cannot load Jupyter notebooks. If that's the case, [click here](https://nbviewer.jupyter.org/github/jscriptcoder/Reacher-Continuous-Control/blob/master/Continuous_Control.ipynb) to visualize it using nbviewer.
+
+See [References](References.md) for articles, papers and github repos where I got most of the inspiration to accomplish this project.
