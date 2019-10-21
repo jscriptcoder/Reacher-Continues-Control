@@ -4,6 +4,8 @@
 
 - [Paper] **Proximal Policy Optimization Algorithms:** https://arxiv.org/abs/1707.06347
 
+- [Paper] **High-Dimensional Continuous Control Using Generalized Advantage Estimation**: https://arxiv.org/abs/1506.02438
+
 - [Article] **Understanding Actor Critic Methods and A2C:** https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f
 
 - [Article] **The idea behind Actor-Critics and how A2C and A3C improve them**: https://sergioskar.github.io/Actor_critics/
