@@ -1,3 +1,5 @@
+# References
+
 - [Article] **Understanding Actor Critic Methods and A2C:** https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f
 
 - [Paper] **Asynchronous Methods for Deep Reinforcement Learning**: https://arxiv.org/abs/1602.01783
