@@ -16,14 +16,14 @@
 
 - [Article] **Proximal Policy Optimization (PPO) with Sonic the Hedgehog 2 and 3:** https://towardsdatascience.com/proximal-policy-optimization-ppo-with-sonic-the-hedgehog-2-and-3-c9c21dbed5e
 
-- [Github] **RL-Adventure-2, by [higgsfield](https://github.com/higgsfield**: https://github.com/higgsfield/RL-Adventure-2
+- [Github] **RL-Adventure-2**, by [higgsfield](https://github.com/higgsfield): https://github.com/higgsfield/RL-Adventure-2
 
-- [Github] **DeepRL by [ShangtongZhang](https://github.com/ShangtongZhang):**, https://github.com/ShangtongZhang/DeepRL
+- [Github] **DeepRL** by [Shangtong Zhang](https://github.com/ShangtongZhang):, https://github.com/ShangtongZhang/DeepRL
 
-- [Github] **PPO-PyTorch, by [nikhilbarhate99](https://github.com/nikhilbarhate99)**: https://github.com/nikhilbarhate99/PPO-PyTorch
+- [Github] **PPO-PyTorch**, by [Nikhil Barhate](https://github.com/nikhilbarhate99): https://github.com/nikhilbarhate99/PPO-PyTorch
 
-- [Github] **PPO-PyTorch, by [Abhipanda4](https://github.com/Abhipanda4)**: https://github.com/Abhipanda4/PPO-PyTorch
+- [Github] **PPO-PyTorch**, by [Abhisek Panda](https://github.com/Abhipanda4)*: https://github.com/Abhipanda4/PPO-PyTorch
 
-- [Github] **move37, [colinskow](https://github.com/colinskow):** https://github.com/colinskow/move37
+- [Github] **move37**, [Colin Skow](https://github.com/colinskow): https://github.com/colinskow/move37
 
-- [Github] **torchrl, by [RchalYang](https://github.com/RchalYang)**: https://github.com/RchalYang/torchrl
+- [Github] **torchrl**, by [Rchal](https://github.com/RchalYang): https://github.com/RchalYang/torchrl
