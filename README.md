@@ -68,3 +68,5 @@ Follow the instructions in `Continuous_Control.ipynb` to get started with traini
 
 ### References
 See [References](References.md) for articles, papers and github repos where I got most of the inspiration from to accomplish this project.
+
+<!-- sort 1 -->
